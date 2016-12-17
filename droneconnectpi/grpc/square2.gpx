@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx version="1.1" creator="http://www.geoplaner.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<rte>
+<name>Route1</name>
+<rtept lat="48.46742" lon="-123.31514">
+<ele>56.1</ele>
+<name>WP01-A</name>
+</rtept>
+<rtept lat="48.46738" lon="-123.31529">
+<ele>56.1</ele>
+<name>WP02-B</name>
+</rtept>
+<rtept lat="48.46746" lon="-123.31533">
+<ele>56.1</ele>
+<name>WP03-C</name>
+</rtept>
+<rtept lat="48.4675" lon="-123.31517">
+<ele>56.1</ele>
+<name>WP04-D</name>
+</rtept>
+</rte>
+</gpx>

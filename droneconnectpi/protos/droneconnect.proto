@@ -1,0 +1,113 @@
+// Copyright 2015, Google Inc.
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met:
+//
+//     * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above
+// copyright notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+//     * Neither the name of Google Inc. nor the names of its
+// contributors may be used to endorse or promote products derived from
+// this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.uvic-cfar.swim.droneconnect";
+option java_outer_classname = "DroneConnectProto";
+
+package droneconnect;
+
+// The droneconnect service definition.  Services are meant to provide a layer of abstraction for
+// controlling and accessing information from the drone.
+service DroneConnect {
+  
+    rpc getAutopilotInfo(UavIdentifier) returns (AutopilotInfo) {}
+    rpc getPosition(Null) returns (Position) {}
+  
+    rpc setMode(Mode) returns (Null) {}
+    rpc hasMode(Null) returns (Mode) {}
+  
+    rpc setArmed(Armed) returns (Null) {}
+    rpc isArmed(Null) returns (Armed) {}
+  
+    rpc setSafety(Safety) returns (Null) {}
+    rpc getSafety(Null) returns (Safety) {}
+  
+    rpc takeoff(TakeoffToAltitude) returns (Position) {}
+  
+    rpc setPath(stream Position) returns (Null) {}
+}
+
+message Null {
+}
+
+message UavIdentifier {
+    int32 identifier = 1;
+}
+
+// Information about the autopilot firmware
+message AutopilotInfo {
+    int32 identifier = 1;
+    string autopilot_firmware_version = 2;
+    int32 major_version_number = 3;
+    int32 minor_version_number = 4;
+    int32 patch_version_number = 5;
+    string release_type = 6;
+    int32 release_version = 7;
+    bool stable_release = 8;
+}
+
+// Position of the drone.
+// 
+// The latitude and longitude are relative to the WGS84 coordinate system.  
+// relativeAltitude -     Altitude is relative to the HOME position in meters.  The HOME position is
+//                        set when the drone is armed.
+// gpsAltitude -          Altitude is relative to mean sea-level (MSL)
+// useRelativeAltitude -  When set to TRUE, mission should be relative to HOME position.  Of use
+//                        only when a mission is sent to the drone.  When a position is received
+//                        both relativeAltitude and useRelativeAltitude will have relevant values.
+message Position {
+    double lat = 1;
+    double lon = 2;
+    double gpsAltitude = 3;
+    double relativeAltitude = 4;
+    bool useRelativeAltitude = 5;
+}
+
+// Mode of the drone, eg. AUTO    
+message Mode {
+    string mode = 1;
+}
+
+// Armed state of the drone.  TRUE indicates the drone is armed
+message Armed {
+    bool arm = 1;
+}
+
+// True indicates safety switch is on
+message Safety {
+    bool safety = 1;
+}
+
+// Take off to an altitude in meters
+message TakeoffToAltitude {
+    double altitude = 1;
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx version="1.1" creator="http://www.geoplaner.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<rte>
+<name>Route1</name>
+<rtept lat="48.46249" lon="-123.30415">
+<ele>53.1</ele>
+<name>WP01-A</name>
+</rtept>
+<rtept lat="48.46248" lon="-123.30409">
+<ele>53.1</ele>
+<name>WP02-B</name>
+</rtept>
+<rtept lat="48.46246" lon="-123.30405">
+<ele>53.1</ele>
+<name>WP03-C</name>
+</rtept>
+<rtept lat="48.46244" lon="-123.30404">
+<ele>53.2</ele>
+<name>WP04-D</name>
+</rtept>
+<rtept lat="48.46241" lon="-123.30403">
+<ele>53.3</ele>
+<name>WP05-E</name>
+</rtept>
+<rtept lat="48.46239" lon="-123.30404">
+<ele>53.4</ele>
+<name>WP06-F</name>
+</rtept>
+<rtept lat="48.46236" lon="-123.30407">
+<ele>53.5</ele>
+<name>WP07-G</name>
+</rtept>
+<rtept lat="48.46234" lon="-123.30412">
+<ele>53.5</ele>
+<name>WP08-H</name>
+</rtept>
+<rtept lat="48.46233" lon="-123.30419">
+<ele>53.4</ele>
+<name>WP09-I</name>
+</rtept>
+<rtept lat="48.46233" lon="-123.30425">
+<ele>53.5</ele>
+<name>WP10-J</name>
+</rtept>
+<rtept lat="48.46234" lon="-123.3043">
+<ele>53.6</ele>
+<name>WP11-K</name>
+</rtept>
+<rtept lat="48.46235" lon="-123.30436">
+<ele>53.8</ele>
+<name>WP12-L</name>
+</rtept>
+</rte>
+</gpx>

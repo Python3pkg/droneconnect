@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option java_package = "com.heinemann.grpc.apmplanner";
+option objc_class_prefix = "APMPlanner";
+
+package com.heinemann.grpc.apmplanner;
+
+service UasManager {
+	rpc getActiveUas(Null) returns (UasIdentifier) {}
+	rpc setActiveUas(UasIdentifier) returns (Null) {}
+	rpc getUas(UasIdentifier) returns (Uas) {}
+	rpc getUasList(Null) returns (stream Uas) {}
+	
+	rpc go(Null) returns (Null) {}
+	rpc halt(Null) returns (Null) {}
+	rpc home(Null) returns (Null) {}
+	rpc land(Null) returns (Null) {}
+	rpc launch(Null) returns (Null) {}
+	rpc reboot(Null) returns (Null) {}
+	rpc shutdown(Null) returns (Null) {}
+	
+	rpc setMode(UasMode) returns (Null) {}
+	rpc setArmed(UasArmed) returns (Null) {}
+	
+	rpc getSubscribers(Null) returns (stream UasSubscriber) {}
+	rpc addSubscriber(UasSubscriber) returns (Null) {}
+	rpc removeSubscriber(UasSubscriber) returns (Null) {}
+}
+
+message Null {
+}
+
+message UasIdentifier {
+	int32 identifier = 1;
+}
+
+message UasMode {
+	int32 mode = 1;
+}
+
+message UasArmed {
+	bool armed = 1;
+}
+
+message Uas {
+	int32 identifier = 1;
+	string name = 2;
+	string systemTypeName = 3;
+	string autopilotTypeName = 4;
+	string shortState = 5;
+	string shortMode = 6;
+	bool isArmed = 7;
+	string batterySpecs = 8;
+	int64 uptime = 9;
+	double roll = 10;
+	double pitch = 11;
+	double yaw = 12;
+}
+
+message UasSubscriber {
+	string subscriber = 1;
+}
