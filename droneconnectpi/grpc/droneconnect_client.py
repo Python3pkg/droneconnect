@@ -31,7 +31,7 @@
 
 """The Python implementation of the GRPC helloworld.Greeter client."""
 
-from __future__ import print_function
+
 from optparse import OptionParser
 import grpc
 import droneconnect_pb2
@@ -178,7 +178,7 @@ def main():
   
   Press "Enter" key to exit
         """)
-        ans=raw_input("What would you like to do? ") 
+        ans=input("What would you like to do? ") 
         if ans == "1": 
             droneInfo(stub) 
         elif ans == "2":
@@ -191,28 +191,28 @@ def main():
             # TODO: Get modes directly from drone, for now just print them out
             print ("RTL, POSHOLD, LAND, OF_LOITER, STABILIZE, AUTO, GUIDED, THROW, DRIFT, FLIP, ")
             print ("AUTOTUNE, ALT_HOLD, BRAKE, LOITER, AVOID_ADSB, POSITION, CIRCLE, SPORT, ACRO")
-            newMode = raw_input("\nNew mode: ")
+            newMode = input("\nNew mode: ")
             setMode(stub, newMode)
             time.sleep(1)
         elif ans == "5":
-            newMode = raw_input("\nType 'arm' to arm or anything else to 'disarm': ")
+            newMode = input("\nType 'arm' to arm or anything else to 'disarm': ")
             if newMode == 'arm':
                 setArmed(stub, True)
             else: 
                 setArmed(stub, False)
         elif ans == "6":
-            safety = raw_input("\nType 'off' to turn safety off or anything else for 'on': ")
+            safety = input("\nType 'off' to turn safety off or anything else for 'on': ")
             if safety == 'off':
                 setSafety(stub, False)
             else: 
                 setSafety(stub, True)
             time.sleep(1)
         elif ans == "7":
-            pathFile = raw_input("\nPath file: ")
+            pathFile = input("\nPath file: ")
             #pathFile = "route3.gpx"
             setPath(stub, pathFile)
         elif ans == "8":
-            takeoffAltitude = raw_input("\nAltitude: ")
+            takeoffAltitude = input("\nAltitude: ")
             takeoff(stub, float(takeoffAltitude))
         elif ans == "9":
             continue

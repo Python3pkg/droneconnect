@@ -16,24 +16,24 @@ args = parser.parse_args()
 connection_string = args.connect
 
 if not connection_string:
-    print "Usage: python parameters.py --connect port (eg. /dev/ttyUSB0 or /dev/ttyACM0)"
+    print("Usage: python parameters.py --connect port (eg. /dev/ttyUSB0 or /dev/ttyACM0)")
     sys.exit (1)
 
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
-print "\nConnecting to vehicle on: %s" % connection_string
+print("\nConnecting to vehicle on: %s" % connection_string)
 vehicle = connect(connection_string, wait_ready=True, baud=57600, heartbeat_timeout=120)
 
 # Parameters
-print "\nPrint all parameters (iterate `vehicle.parameters`):"
+print("\nPrint all parameters (iterate `vehicle.parameters`):")
 
 # Sorts the list of parameters before printing
 od = collections.OrderedDict(sorted(vehicle.parameters.items()))
-for key, value in od.iteritems():
-	print " Key:%s Value:%s" % (key,value)
+for key, value in od.items():
+	print(" Key:%s Value:%s" % (key,value))
 
 #Close vehicle object before exiting script
-print "\nClose vehicle object"
+print("\nClose vehicle object")
 vehicle.close()
 
 print("Completed")

@@ -72,7 +72,7 @@ def serve(vehicle):
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
-        print "Stopping grpc server"
+        print("Stopping grpc server")
         server.stop(0)
 
 if __name__ == '__main__':
@@ -80,5 +80,5 @@ if __name__ == '__main__':
     serve(vehicle)
     
     #Close vehicle object before exiting script
-    print "\nClosing connection with drone"
+    print("\nClosing connection with drone")
     vehicle.close()

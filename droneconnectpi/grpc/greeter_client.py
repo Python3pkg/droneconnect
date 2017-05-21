@@ -29,7 +29,7 @@
 
 """The Python implementation of the GRPC helloworld.Greeter client."""
 
-from __future__ import print_function
+
 
 import grpc
 

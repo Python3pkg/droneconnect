@@ -187,7 +187,7 @@ class DroneConnect(droneconnect_pb2.DroneConnectServicer):
             alt = firstPosition.gpsAltitude
             coordFrame = mavutil.mavlink.MAV_FRAME_GLOBAL
 
-        print ('First position at ({0},{1}) -> {2}'.format(lat, lon, alt))
+        print(('First position at ({0},{1}) -> {2}'.format(lat, lon, alt)))
         
         # Make sure the drone is not in AUTO mode.   
         self.vehicle.mode = VehicleMode("LOITER")
@@ -204,13 +204,13 @@ class DroneConnect(droneconnect_pb2.DroneConnectServicer):
                 alt = position.relativeAltitude
             else:
                 alt = position.gpsAltitude
-            print ('Point at ({0},{1}) -> {2}'.format(lat, lon, alt))
+            print(('Point at ({0},{1}) -> {2}'.format(lat, lon, alt)))
             cmds.add(Command( 0, 0, 0, coordFrame, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, lat, lon, alt))
             
         print ("Uploading new commands to drone")
         cmds.upload()
         
-        print "Starting mission"
+        print("Starting mission")
         # Reset mission set to first (0) waypoint
         self.vehicle.commands.next = 0
         self.vehicle.mode = VehicleMode("AUTO")
@@ -221,7 +221,7 @@ class DroneConnect(droneconnect_pb2.DroneConnectServicer):
         
     def takeoff(self, request, context):
       """Arms vehicle and fly to target altitude relative to HOME position."""
-      print "Arming motors"
+      print("Arming motors")
       # Copter should arm in GUIDED mode
       self.vehicle.mode = VehicleMode("GUIDED")
       self.vehicle.armed = True    
@@ -229,22 +229,22 @@ class DroneConnect(droneconnect_pb2.DroneConnectServicer):
       # Confirm vehicle armed before attempting to take off
       timeout = 0
       while not self.vehicle.armed:      
-          print " Waiting for arming..."
+          print(" Waiting for arming...")
           time.sleep(1)
           timeout = timeout + 1
           if timeout == 20:
               return self.getPosition(request, context)
 
-      print "Taking off!"
+      print("Taking off!")
       self.vehicle.simple_takeoff(request.altitude) # Take off to target altitude
 
       # Wait until the vehicle reaches a safe height before processing the goto (otherwise the command 
       #  after Vehicle.simple_takeoff will execute immediately).
       while True:
-          print " Altitude: ", self.vehicle.location.global_relative_frame.alt 
+          print(" Altitude: ", self.vehicle.location.global_relative_frame.alt) 
           #Break and return from function just below target altitude.        
           if self.vehicle.location.global_relative_frame.alt >= request.altitude * 0.95: 
-              print "Reached target altitude"
+              print("Reached target altitude")
               break
           time.sleep(1)
           
@@ -271,7 +271,7 @@ class DroneConnect(droneconnect_pb2.DroneConnectServicer):
         """
         Downloads the current mission and returns it in a list.
         """
-        print " Download mission from vehicle"
+        print(" Download mission from vehicle")
         missionlist = []
         cmds = self.vehicle.commands
         cmds.download()
@@ -291,7 +291,7 @@ class DroneConnect(droneconnect_pb2.DroneConnectServicer):
         #Add commands
         for cmd in missionlist:
             commandline="%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (cmd.seq,cmd.current,cmd.frame,cmd.command,cmd.param1,cmd.param2,cmd.param3,cmd.param4,cmd.x,cmd.y,cmd.z,cmd.autocontinue)
-            print commandline
+            print(commandline)
             
     def print_position(self):
         """
@@ -300,7 +300,7 @@ class DroneConnect(droneconnect_pb2.DroneConnectServicer):
         while True:
             lat = self.vehicle.location.global_relative_frame.lat
             lon = self.vehicle.location.global_relative_frame.lon
-            print ('{0},{1}'.format(lat, lon))
+            print(('{0},{1}'.format(lat, lon)))
             time.sleep(1) 
 
 def nth(iterable, n, default=None):
@@ -314,7 +314,7 @@ def distance_to_current_waypoint():
     Gets distance in metres to the current waypoint. 
     It returns None for the first waypoint (Home location).
     """
-    nextwaypoint = vehicle.commands.next
+    nextwaypoint = vehicle.commands.__next__
     if nextwaypoint==0:
         return None
     missionitem=vehicle.commands[nextwaypoint-1] #commands are zero indexed
@@ -336,13 +336,13 @@ def connect_to_drone(sitlOption, lat, lon):
         sitl = dronekit_sitl.start_default(lat, lon)
         
         connection_string = sitl.connection_string()
-        print connection_string
+        print(connection_string)
         vehicle = connect(connection_string, wait_ready=True, vehicle_class=NewVehicle)
     else:
         serial_list = mavutil.auto_detect_serial(preferred_list=['*FTDI*',"*Arduino_Mega_2560*", "*3D_Robotics*", "*USB_to_UART*", '*PX4*', '*FMU*'])
         print('Auto-detected serial ports are:')
         for port in serial_list:
-            print("%s" % port)
+            print(("%s" % port))
        
         connection_string = str(serial_list[0].device)
         vehicle = connect(connection_string, wait_ready=True, baud=57600, heartbeat_timeout=120, vehicle_class=NewVehicle)
@@ -368,7 +368,7 @@ def serve():
     (options, args) = parser.parse_args()
     
     vehicle = connect_to_drone(options.sitlOption, options.lat, options.lon)
-    print "Set default/target airspeed to 2"
+    print("Set default/target airspeed to 2")
     vehicle.airspeed = 2
     
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
